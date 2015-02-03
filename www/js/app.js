@@ -7,7 +7,8 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('blinger', ['ionic', 'blinger.controllers', 'blinger.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, UserSession) {
+  console.log(UserSession.get());
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -28,7 +29,15 @@ angular.module('blinger', ['ionic', 'blinger.controllers', 'blinger.services'])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
+  .state('signin', {
+    url: "/sign-in",
+    templateUrl: "templates/sign-in.html",
+    controller: 'SignInCtrl'
+  })
+  .state('forgotpassword', {
+    url: "/forgot-password",
+    templateUrl: "templates/forgot-password.html"
+  })
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: "/tab",
@@ -56,6 +65,16 @@ angular.module('blinger', ['ionic', 'blinger.controllers', 'blinger.services'])
         }
       }
     })
+      .state('tab.new-detail', {
+        url: '/articles/:articleId/comments/new',
+        views: {
+          'tab-articles': {
+            templateUrl: 'templates/new-comment.html',
+            controller: 'NewCommentCtrl'
+          }
+
+        }
+      })
 
   .state('tab.chats', {
       url: '/chats',
@@ -106,6 +125,5 @@ angular.module('blinger', ['ionic', 'blinger.controllers', 'blinger.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/articles');
-
+  $urlRouterProvider.otherwise('/sign-in');
 });

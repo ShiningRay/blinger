@@ -7014,3 +7014,29 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.comment-avatar, .comment-body {
+  float: left; }
+
+.comment-floor {
+  float: right;
+  color: #ccc; }
+
+.comment-avatar {
+  width: 50px;
+  height: 40px; }
+
+.comment-body {
+  width: 230px; }
+
+.comment {
+  *zoom: 1;
+  border-bottom: 1px solid #ededed;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+  .comment:before, .comment:after {
+    display: table;
+    content: "";
+    line-height: 0; }
+  .comment:after {
+    clear: both; }

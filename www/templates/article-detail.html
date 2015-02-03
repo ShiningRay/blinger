@@ -10,5 +10,25 @@ The Friends service returns an array of friend data
     <p>
       {{article.top_post.content}}
     </p>
+    <div ng-controller="ArticleCommentsCtrl as commentsCtrl">
+    <ul  class="comment-list">
+      <li ng-repeat="comment in comments" ng-attr-id="comment-{{comment.id}}" class="comment">
+        <div class="comment-avatar">
+          <img ng-src="{{comment.user.avatar_url}}" />
+        </div>
+        <div class="comment-floor">
+          {{comment.floor}}
+        </div>
+        <div class="comment-body">
+          <div class="comment-user">{{comment.user.name}}</div>
+          {{comment.content}}
+        </div>
+      </li>
+    </ul>
+    <form method="post" ng-controller="NewCommentCtrl">
+      <input ng-model="comment.content">
+      <input ng-click="submit()" type="button">
+    </form>
+  </div>
   </ion-content>
 </ion-view>

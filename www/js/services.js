@@ -1,6 +1,38 @@
+window.BASE_URL = 'http://www.bling0.com';
+// window.BASE_URL = 'http://localhost:3000';
 angular.module('blinger.services', ['ngResource'])
 .factory('Articles', function ($resource) {
-  return $resource('http://localhost:3000/articles/:id.json');
+  return $resource(BASE_URL+'/articles/:id.json');
+})
+.factory('Comments', function ($resource) {
+  return $resource(BASE_URL+'/articles/:articleId/comments/:id.json');
+})
+.factory('UserSession', function ($http) {
+  var currentUser =  window.localStorage['currentUser'];
+  if (currentUser) {
+    currentUser = JSON.parse(currentUser);
+    $http.defaults.headers.common.Authorization = 'Basic '+ btoa(currentUser.login + ":"+ currentUser.password );
+  }
+  return {
+    get: function () {
+      return currentUser;
+    },
+    set: function (user) {
+      window.localStorage['currentUser'] = JSON.stringify(user);
+      $http.defaults.headers.common.Authorization = 'Basic '+ btoa(user.login + ":"+ user.password );
+    },
+    login: function (user) {
+      var self = this;
+      return $http.post(BASE_URL+'/session.json', {user_session: user}).success(function (data) {
+        data.password = user.password;
+        self.set(data);
+      });
+    },
+    logout: function () {
+      $http.defaults.headers.common.Authorization = null;
+    }
+  }
+
 })
 .factory('Chats', function($resource) {
   // Might use a resource here that returns a JSON array

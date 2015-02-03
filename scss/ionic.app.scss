@@ -21,3 +21,24 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+
+.comment-avatar, .comment-body {
+  float: left;
+}
+.comment-floor {
+  float: right;
+  color: #ccc
+}
+.comment-avatar {
+  width: 50px;
+  height: 40px;
+}
+.comment-body {
+  width: 230px;
+}
+.comment {
+  @include clearfix();
+  border-bottom: 1px solid #ededed;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
