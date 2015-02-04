@@ -1,22 +1,25 @@
 
 
 <ion-view view-title="最新文章">
-<ion-content class="padding">
-<ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()"></ion-refresher>
-<div class="list card" ng-repeat="article in articles" ng-click="gotoArticle(article.id)">
-  <div class="item item-divider">{{article.title}}</div>
-  <div class="item item-body">
-    <div>
-    <div ng-hide="article.top_post.picture.original.path == null">
-        <img ng-src="{{base_url + article.top_post.picture.original.path}}"  style="width:100%"/><br>
+  <ion-content class="padding">
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()"></ion-refresher>
+    <div class="list card" ng-repeat="article in articles" ng-click="gotoArticle(article.id)">
+      <div class="item item-divider">
+        <div class="avatar">
+          <img ng-src="{{article.user.avatar.small}}" />
+        </div>
+        {{article.title}}
       </div>
-      {{article.top_post.content}}
+      <div class="item item-body">
+        <div>
+          <div ng-hide="article.top_post.picture.original.path == null">
+            <img ng-src="{{base_url + article.top_post.picture.original.path}}"  style="width:100%"/><br>
+          </div>
+          {{article.top_post.content}}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<ion-infinite-scroll
-on-infinite="loadMore()"
-distance="1%">
-</ion-infinite-scroll>
-</ion-content>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
 </ion-view>

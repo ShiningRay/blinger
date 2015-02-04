@@ -1,6 +1,6 @@
 {
   "name": "blinger",
-  "app_id": "",
+  "app_id": "3c9127e3",
   "gulpStartupTasks": [
     "sass",
     "watch"
