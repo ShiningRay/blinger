@@ -15,7 +15,11 @@
           <div ng-hide="article.top_post.picture.original.path == null">
             <img ng-src="{{base_url + article.top_post.picture.original.path}}"  style="width:100%"/><br>
           </div>
-          {{article.top_post.content}}
+          {{article.top_post.content | limitTo : 150}}
+          <br>
+          {{article.top_post.pos}} up
+          {{article.top_post.neg}} down
+          {{article.comments_count}} comments
         </div>
       </div>
     </div>

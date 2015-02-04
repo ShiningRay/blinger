@@ -44,3 +44,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.item .avatar {
+  float: left;
+  margin-left: -7px;
+  margin-right: 10px;
+  img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+}

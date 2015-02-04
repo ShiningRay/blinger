@@ -7041,3 +7041,12 @@ a.button {
     line-height: 0; }
   .comment:after {
     clear: both; }
+
+.item .avatar {
+  float: left;
+  margin-left: -7px;
+  margin-right: 10px; }
+  .item .avatar img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; }
