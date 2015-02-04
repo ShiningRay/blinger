@@ -35,6 +35,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 .comment-body {
   width: 230px;
+  margin-left: 10px;
+
 }
 .comment {
   @include clearfix();

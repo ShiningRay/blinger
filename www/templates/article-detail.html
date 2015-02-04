@@ -5,30 +5,31 @@ The FriendsCtrl pulls data from the Friends service (service.js)
 The Friends service returns an array of friend data
 -->
 <ion-view view-title="{{article.title}}">
-  <ion-content class="padding">
-    <h3>{{article.title}}</h3>
-    <p>
-      {{article.top_post.content}}
-    </p>
-    <div ng-controller="ArticleCommentsCtrl as commentsCtrl">
-    <ul  class="comment-list">
-      <li ng-repeat="comment in comments" ng-attr-id="comment-{{comment.id}}" class="comment">
-        <div class="comment-avatar">
-          <img ng-src="{{comment.user.avatar_url}}" />
-        </div>
-        <div class="comment-floor">
-          {{comment.floor}}
-        </div>
-        <div class="comment-body">
-          <div class="comment-user">{{comment.user.name}}</div>
-          {{comment.content}}
-        </div>
-      </li>
-    </ul>
-    <form method="post" ng-controller="NewCommentCtrl">
-      <input ng-model="comment.content">
-      <input ng-click="submit()" type="button">
-    </form>
-  </div>
-  </ion-content>
+<ion-content class="padding">
+<h3>{{article.title}}</h3>
+<img ng-src="{{base_url + article.top_post.picture.original.path}}" ng-hide="article.top_post.picture.original.path == null" style="width:100%"/>
+<p>
+  {{article.top_post.content}}
+</p>
+<div ng-controller="ArticleCommentsCtrl as commentsCtrl">
+  <ul  class="comment-list">
+    <li ng-repeat="comment in comments" ng-attr-id="comment-{{comment.id}}" class="comment">
+      <div class="comment-avatar">
+        <img ng-src="{{base_url + comment.user.avatar_url}}" style="width: 50px; height: 50px"/>
+      </div>
+      <div class="comment-floor">
+        {{comment.floor}}
+      </div>
+      <div class="comment-body">
+        <div class="comment-user">{{comment.user.name}}</div>
+        {{comment.content}}
+      </div>
+    </li>
+  </ul>
+  <form method="post" ng-controller="NewCommentCtrl">
+    <input ng-model="comment.content">
+    <input ng-click="submit()" value="回复" type="button">
+  </form>
+</div>
+</ion-content>
 </ion-view>

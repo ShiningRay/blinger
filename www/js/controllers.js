@@ -4,6 +4,7 @@ angular.module('blinger.controllers', [])
 
   $scope.currentPage = 1;
   $scope.articles = Articles.query();
+  $scope.base_url = BASE_URL;
   $scope.gotoArticle = function (articleId) {
     $state.go('tab.article-detail', {articleId: articleId});
   };
@@ -32,6 +33,7 @@ angular.module('blinger.controllers', [])
 
 .controller('ArticleDetailCtrl', function ($scope, $stateParams, $ionicLoading, Articles, Comments) {
   $ionicLoading.show();
+  $scope.base_url = BASE_URL;  
   $scope.articleId = $stateParams.articleId;
   Articles.get({id: $stateParams.articleId }).$promise.then(function (data) {
     $scope.article = data;

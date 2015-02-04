@@ -7027,7 +7027,8 @@ a.button {
   height: 40px; }
 
 .comment-body {
-  width: 230px; }
+  width: 230px; 
+  margin-left: 10px;}
 
 .comment {
   *zoom: 1;
