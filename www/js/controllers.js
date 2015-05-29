@@ -1,10 +1,33 @@
 angular.module('blinger.controllers', [])
 
-.controller('ArticlesCtrl', function($scope, $state, Articles) {
+.controller('ArticlesCtrl', function($scope, $state, $ionicModal, Articles) {
 
   $scope.currentPage = 1;
   $scope.articles = Articles.query();
-  $scope.base_url = BASE_URL;
+
+  $ionicModal.fromTemplateUrl('templates/articles-new.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    $scope.newArticleModal = modal;
+  });
+  $scope.newArticle = function () {
+    $scope.newArticleModal.show();
+  };
+  $scope.closeNewArticle = function() {
+    $scope.newArticleModal.hide();
+  };
+  $scope.postArticle = function () {
+    var article = new Articles($scope.newArticle);
+    article.$save().then(function (data) {
+      $scope.newArticleModal.hide();
+      $state.go('tab.article-detail', {articleId: data.id});
+    });
+  };
+
+  $scope.$on('$destroy', function() {
+    $scope.newArticleModal.remove();
+  });
   $scope.gotoArticle = function (articleId) {
     $state.go('tab.article-detail', {articleId: articleId});
   };
@@ -33,12 +56,22 @@ angular.module('blinger.controllers', [])
 
 .controller('ArticleDetailCtrl', function ($scope, $stateParams, $ionicLoading, Articles, Comments) {
   $ionicLoading.show();
-  $scope.base_url = BASE_URL;  
+  $scope.base_url = BASE_URL;
   $scope.articleId = $stateParams.articleId;
   Articles.get({id: $stateParams.articleId }).$promise.then(function (data) {
     $scope.article = data;
     $ionicLoading.hide();
   });
+})
+
+.controller('NewArticleCtrl', function ($scope, Articles) {
+  $scope.article = {};
+  $scope.submit = function () {
+    console.log($scope.article);
+    Articles.save($scope.article, function (data) {
+      $state.go('tab.article-detail', {articleId: articleId});
+    });
+  };
 })
 
 .controller('ArticleCommentsCtrl', function ($scope, Comments) {

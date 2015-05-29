@@ -1,0 +1,25 @@
+
+
+<ion-modal-view view-title="创建文章">
+  <ion-header-bar class="bar-energized">
+    <button class="button button-icon icon ion-close" ng-click="closeNewArticle()"></button>
+    <h1 class="title">创建文章</h1>
+
+  </ion-header-bar>
+  <ion-content>
+
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Title" ng-model="newArticle.title" name="article[title]">
+      </label>
+      <label class="item item-input">
+        <textarea placeholder="Content" ng-model="newArticle.content" name="article[content]"></textarea>
+      </label>
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="postArticle()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

@@ -56,6 +56,7 @@ angular.module('blinger', ['ionic', 'blinger.controllers', 'blinger.services'])
       }
     }
   })
+
     .state('tab.article-detail', {
       url: '/articles/:articleId',
       views: {

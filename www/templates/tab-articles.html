@@ -1,6 +1,10 @@
 
 
 <ion-view view-title="最新文章">
+  <ion-nav-buttons side="right">
+    <button class="button button-small button-icon icon ion-plus" ng-click="newArticle()">
+    </button>
+  </ion-nav-buttons>
   <ion-content class="padding">
     <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()"></ion-refresher>
     <div class="list card" ng-repeat="article in articles" ng-click="gotoArticle(article.id)">
