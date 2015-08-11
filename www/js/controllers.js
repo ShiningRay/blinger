@@ -29,7 +29,7 @@ angular.module('blinger.controllers', [])
     $scope.newTopicModal.remove();
   });
   $scope.gotoTopic = function (topicId) {
-    $state.go('tab.topic-detail', {topic: topicId});
+    $state.go('tab.topic-detail', {topicId: topicId});
   };
   $scope.doRefresh = function() {
     Topics.query().$promise.then(function (topics) {
@@ -58,8 +58,11 @@ angular.module('blinger.controllers', [])
   $ionicLoading.show();
   $scope.base_url = BASE_URL;
   $scope.topicId = $stateParams.topicId;
+
   Topics.get({id: $stateParams.topicId }).$promise.then(function (data) {
     $scope.topic = data;
+    console.log(data);
+    $scope.posts = Posts.query({groupId: data.group.id, topicId: $scope.topicId});
     $ionicLoading.hide();
   });
 })
@@ -72,14 +75,6 @@ angular.module('blinger.controllers', [])
       $state.go('tab.topic-detail', {topicId: topicId});
     });
   };
-})
-
-.controller('TopicCommentsCtrl', function ($scope, Posts) {
-  // $scope.init = function (articleId) {
-  // console.log(articleId);
-  $scope.comments = Posts.query({topicId: $scope.topicId});
-  // };
-
 })
 
 .controller('NewCommentCtrl', function ($scope, Posts) {

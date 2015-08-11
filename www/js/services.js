@@ -4,11 +4,14 @@ angular.module('blinger.services', ['ngResource'])
 .constant('ApiEndpoint', {
   url: 'http://www.bling0.com'
 })
+.factory('Groups', function ($resource) {
+  return $resource(BASE_URL + '/groups/:id.json');
+})
 .factory('Topics', function ($resource) {
   return $resource(BASE_URL+'/topics/:id.json');
 })
 .factory('Posts', function ($resource) {
-  return $resource(BASE_URL+'/topics/:articleId/posts/:id.json');
+  return $resource(BASE_URL+'/groups/:groupId/topics/:topicId/posts/:id.json');
 })
 .factory('UserSession', function ($http) {
   var currentUser =  window.localStorage.currentUser;
@@ -34,8 +37,7 @@ angular.module('blinger.services', ['ngResource'])
     logout: function () {
       $http.defaults.headers.common.Authorization = null;
     }
-  }
-
+  };
 })
 .factory('Chats', function($resource) {
   // Might use a resource here that returns a JSON array

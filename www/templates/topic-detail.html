@@ -6,22 +6,19 @@ The Friends service returns an array of friend data
 -->
 <ion-view view-title="{{topic.title}}">
 <ion-content class="padding">
-<h3>{{article.title}}</h3>
-<div class="content">
-  {{article.top_post.content}}
-</div>
-<div ng-controller="TopicCommentsCtrl as commentsCtrl">
+<h3>{{topic.title}}</h3>
+<div>
   <ul  class="comment-list">
-    <li ng-repeat="comment in comments" ng-attr-id="comment-{{comment.id}}" class="comment">
+    <li ng-repeat="comment in posts" ng-attr-id="comment-{{comment.id}}" class="comment">
       <div class="comment-avatar">
-        <img ng-src="{{base_url + comment.user.avatar_url}}" style="width: 50px; height: 50px"/>
+        <img ng-src="{{comment.user.avatar_url}}" style="width: 50px; height: 50px"/>
       </div>
       <div class="comment-floor">
         {{comment.floor}}
       </div>
       <div class="comment-body">
         <div class="comment-user">{{comment.user.name}}</div>
-        {{comment.content}}
+        <div class="content" ng-bind-html="comment.content"></div>
       </div>
     </li>
   </ul>

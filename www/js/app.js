@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('blinger', ['ionic', 'blinger.controllers', 'blinger.services'])
+angular.module('blinger', ['ionic', 'blinger.controllers', 'blinger.services', 'ngSanitize'])
 
 .run(function($ionicPlatform, UserSession) {
   console.log(UserSession.get());
