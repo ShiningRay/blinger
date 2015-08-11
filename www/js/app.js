@@ -34,12 +34,12 @@ angular.module('blinger', ['ionic', 'blinger.controllers', 'blinger.services'])
     templateUrl: "templates/sign-in.html",
     controller: 'SignInCtrl'
   })
-  .state('forgotpassword', {
-    url: "/forgot-password",
-    templateUrl: "templates/forgot-password.html"
-  })
+  // .state('forgotpassword', {
+  //   url: "/forgot-password",
+  //   templateUrl: "templates/forgot-password.html"
+  // })
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
@@ -47,35 +47,35 @@ angular.module('blinger', ['ionic', 'blinger.controllers', 'blinger.services'])
 
   // Each tab has its own nav history stack:
 
-  .state('tab.articles', {
-    url: '/articles',
+  .state('tab.topics', {
+    url: '/topics',
     views: {
-      'tab-articles': {
-        templateUrl: 'templates/tab-articles.html',
-        controller: 'ArticlesCtrl'
+      'tab-topics': {
+        templateUrl: 'templates/tab-topics.html',
+        controller: 'TopicsCtrl'
       }
     }
   })
 
-    .state('tab.article-detail', {
-      url: '/articles/:articleId',
+    .state('tab.topic-detail', {
+      url: '/topics/:topicId',
       views: {
-        'tab-articles': {
-          templateUrl: 'templates/article-detail.html',
-          controller: 'ArticleDetailCtrl'
+        'tab-topics': {
+          templateUrl: 'templates/topic-detail.html',
+          controller: 'TopicDetailCtrl'
         }
       }
     })
-      .state('tab.new-detail', {
-        url: '/articles/:articleId/comments/new',
-        views: {
-          'tab-articles': {
-            templateUrl: 'templates/new-comment.html',
-            controller: 'NewCommentCtrl'
-          }
-
-        }
-      })
+      // .state('tab.new-detail', {
+      //   url: '/topics/:topicId/comments/new',
+      //   views: {
+      //     'tab-articles': {
+      //       templateUrl: 'templates/new-comment.html',
+      //       controller: 'NewCommentCtrl'
+      //     }
+      //
+      //   }
+      // })
 
   .state('tab.chats', {
       url: '/chats',

@@ -4,14 +4,13 @@ This template loads for the 'tab.friend-detail' state (app.js)
 The FriendsCtrl pulls data from the Friends service (service.js)
 The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{article.title}}">
+<ion-view view-title="{{topic.title}}">
 <ion-content class="padding">
 <h3>{{article.title}}</h3>
-<img ng-src="{{base_url + article.top_post.picture.original.path}}" ng-hide="article.top_post.picture.original.path == null" style="width:100%"/>
-<p>
+<div class="content">
   {{article.top_post.content}}
-</p>
-<div ng-controller="ArticleCommentsCtrl as commentsCtrl">
+</div>
+<div ng-controller="TopicCommentsCtrl as commentsCtrl">
   <ul  class="comment-list">
     <li ng-repeat="comment in comments" ng-attr-id="comment-{{comment.id}}" class="comment">
       <div class="comment-avatar">

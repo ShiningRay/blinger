@@ -1,11 +1,14 @@
-//window.BASE_URL = 'http://www.bling0.com';
-window.BASE_URL = 'http://localhost:3000';
+window.BASE_URL = 'http://www.bling0.com';
+// window.BASE_URL = 'http://localhost:3000';
 angular.module('blinger.services', ['ngResource'])
-.factory('Articles', function ($resource) {
-  return $resource(BASE_URL+'/articles/:id.json');
+.constant('ApiEndpoint', {
+  url: 'http://www.bling0.com'
 })
-.factory('Comments', function ($resource) {
-  return $resource(BASE_URL+'/articles/:articleId/comments/:id.json');
+.factory('Topics', function ($resource) {
+  return $resource(BASE_URL+'/topics/:id.json');
+})
+.factory('Posts', function ($resource) {
+  return $resource(BASE_URL+'/topics/:articleId/posts/:id.json');
 })
 .factory('UserSession', function ($http) {
   var currentUser =  window.localStorage.currentUser;

@@ -1,48 +1,48 @@
 angular.module('blinger.controllers', [])
 
-.controller('ArticlesCtrl', function($scope, $state, $ionicModal, Articles) {
+.controller('TopicsCtrl', function($scope, $state, $ionicModal, Topics) {
 
   $scope.currentPage = 1;
-  $scope.articles = Articles.query();
+  $scope.topics = Topics.query();
 
-  $ionicModal.fromTemplateUrl('templates/articles-new.html', {
+  $ionicModal.fromTemplateUrl('templates/topic-new.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function (modal) {
-    $scope.newArticleModal = modal;
+    $scope.newTopicModal = modal;
   });
-  $scope.newArticle = function () {
-    $scope.newArticleModal.show();
+  $scope.newTopic = function () {
+    $scope.newTopicModal.show();
   };
-  $scope.closeNewArticle = function() {
+  $scope.closeNewTopic = function() {
     $scope.newArticleModal.hide();
   };
-  $scope.postArticle = function () {
-    var article = new Articles($scope.newArticle);
-    article.$save().then(function (data) {
-      $scope.newArticleModal.hide();
-      $state.go('tab.article-detail', {articleId: data.id});
+  $scope.postTopic = function () {
+    var topic = new Articles($scope.newTopic);
+    topic.$save().then(function (data) {
+      $scope.newTopicModal.hide();
+      $state.go('tab.topic-detail', {topicId: data.id});
     });
   };
 
   $scope.$on('$destroy', function() {
-    $scope.newArticleModal.remove();
+    $scope.newTopicModal.remove();
   });
-  $scope.gotoArticle = function (articleId) {
-    $state.go('tab.article-detail', {articleId: articleId});
+  $scope.gotoTopic = function (topicId) {
+    $state.go('tab.topic-detail', {topic: topicId});
   };
   $scope.doRefresh = function() {
-    Articles.query().$promise.then(function (articles) {
+    Topics.query().$promise.then(function (topics) {
       $scope.currentPage = 1;
-      $scope.articles = articles;
+      $scope.topics = topics;
       $scope.$broadcast('scroll.refreshComplete');
       $scope.$apply();
     });
   };
 
   $scope.loadMore = function () {
-    Articles.query({page: $scope.currentPage+1}).$promise.then(function(data){
-      $scope.articles = $scope.articles.concat(data);
+    Topics.query({page: $scope.currentPage+1}).$promise.then(function(data){
+      $scope.topics = $scope.topics.concat(data);
       $scope.currentPage++;
       $scope.$broadcast('scroll.infiniteScrollComplete');
       // $scope.$apply();
@@ -54,39 +54,39 @@ angular.module('blinger.controllers', [])
   });
 })
 
-.controller('ArticleDetailCtrl', function ($scope, $stateParams, $ionicLoading, Articles, Comments) {
+.controller('TopicDetailCtrl', function ($scope, $stateParams, $ionicLoading, Topics, Posts) {
   $ionicLoading.show();
   $scope.base_url = BASE_URL;
-  $scope.articleId = $stateParams.articleId;
-  Articles.get({id: $stateParams.articleId }).$promise.then(function (data) {
-    $scope.article = data;
+  $scope.topicId = $stateParams.topicId;
+  Topics.get({id: $stateParams.topicId }).$promise.then(function (data) {
+    $scope.topic = data;
     $ionicLoading.hide();
   });
 })
 
-.controller('NewArticleCtrl', function ($scope, Articles) {
-  $scope.article = {};
+.controller('NewTopicCtrl', function ($scope, Topics) {
+  $scope.topic = {};
   $scope.submit = function () {
-    console.log($scope.article);
-    Articles.save($scope.article, function (data) {
-      $state.go('tab.article-detail', {articleId: articleId});
+    console.log($scope.topic);
+    Topics.save($scope.topic, function (data) {
+      $state.go('tab.topic-detail', {topicId: topicId});
     });
   };
 })
 
-.controller('ArticleCommentsCtrl', function ($scope, Comments) {
+.controller('TopicCommentsCtrl', function ($scope, Posts) {
   // $scope.init = function (articleId) {
   // console.log(articleId);
-  $scope.comments = Comments.query({articleId: $scope.articleId});
+  $scope.comments = Posts.query({topicId: $scope.topicId});
   // };
 
 })
 
-.controller('NewCommentCtrl', function ($scope, Comments) {
-  $scope.comment = {article_id: $scope.articleId};
+.controller('NewCommentCtrl', function ($scope, Posts) {
+  $scope.comment = {topic_id: $scope.topicId};
   $scope.submit = function () {
     console.log($scope.comment);
-    Comments.save($scope.comment, function(data){
+    Posts.save($scope.comment, function(data){
       $scope.comments.push(data);
       $scope.comment = {};
     });
@@ -122,7 +122,7 @@ angular.module('blinger.controllers', [])
 .controller('SignInCtrl', function ($scope, $http, $state, UserSession) {
   $scope.signIn = function (user) {
     UserSession.login(user).then(function () {
-      $state.go('tab.articles');
+      $state.go('tab.topics');
     });
   };
 });

@@ -1,0 +1,26 @@
+
+
+<ion-view view-title="最新文章">
+  <ion-nav-buttons side="right">
+    <button class="button button-small button-icon icon ion-plus" ng-click="newTopic()">
+    </button>
+  </ion-nav-buttons>
+  <ion-content class="padding">
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()"></ion-refresher>
+    <div class="list card" ng-repeat="topic in topics" ng-click="gotoTopic(topic.id)">
+      <div class="item item-divider">
+        <div class="avatar">
+          <img ng-src="{{topic.user.avatar.small}}" />
+        </div>
+        {{topic.title}}
+      </div>
+      <div class="item item-body">
+        <div>
+          {{topic.comments_count}} comments
+        </div>
+      </div>
+    </div>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>
