@@ -11,7 +11,7 @@ angular.module('blinger.services', ['ngResource'])
   return $resource(BASE_URL+'/topics/:id.json');
 })
 .factory('Posts', function ($resource) {
-  return $resource(BASE_URL+'/groups/:groupId/topics/:topicId/posts/:id.json');
+  return $resource(BASE_URL+'/groups/:groupId/topics/:topicId/posts/:id.json', {groupId: '@group_id', topicId: '@topic_id'});
 })
 .factory('UserSession', function ($http) {
   var currentUser =  window.localStorage.currentUser;

@@ -61,6 +61,7 @@ angular.module('blinger.controllers', [])
 
   Topics.get({id: $stateParams.topicId }).$promise.then(function (data) {
     $scope.topic = data;
+    $scope.groupId = data.group.id;
     console.log(data);
     $scope.posts = Posts.query({groupId: data.group.id, topicId: $scope.topicId});
     $ionicLoading.hide();
@@ -78,12 +79,15 @@ angular.module('blinger.controllers', [])
 })
 
 .controller('NewCommentCtrl', function ($scope, Posts) {
-  $scope.comment = {topic_id: $scope.topicId};
+
   $scope.submit = function () {
-    console.log($scope.comment);
-    Posts.save($scope.comment, function(data){
-      $scope.comments.push(data);
-      $scope.comment = {};
+    var comment = new Posts({topic_id: $scope.topicId,
+      group_id: $scope.groupId
+    });
+    comment.content =  $scope.content;
+    comment.$save(function (data) {
+      $scope.posts.push(data);
+      $scope.content = '';
     });
   };
 })
